@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { LineChart, XAxis, YAxis, Tooltip, Legend, Line, ResponsiveContainer } from 'recharts';
-import { AlertTriangle, Check } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 const data = [
   { x: -3, y: 9 },
@@ -24,19 +22,25 @@ const QuizQuestion = ({ question, options, correctAnswer, onAnswer }) => {
   };
 
   return (
-    <div className="mb-8">
-      <h3 className="text-lg font-semibold mb-2">{question}</h3>
-      <div className="space-y-2">
+    <div style={{ marginBottom: '2rem' }}>
+      <h3 style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{question}</h3>
+      <div>
         {options.map((option, index) => (
           <button
             key={index}
-            className={`w-full p-2 text-left border rounded ${
-              selectedAnswer === option
+            style={{
+              width: '100%',
+              padding: '0.5rem',
+              textAlign: 'left',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              marginBottom: '0.5rem',
+              backgroundColor: selectedAnswer === option
                 ? option === correctAnswer
-                  ? 'bg-green-100 border-green-500'
-                  : 'bg-red-100 border-red-500'
-                : 'hover:bg-gray-100'
-            }`}
+                  ? '#d4edda'
+                  : '#f8d7da'
+                : 'white',
+            }}
             onClick={() => handleAnswer(option)}
             disabled={showFeedback}
           >
@@ -45,21 +49,21 @@ const QuizQuestion = ({ question, options, correctAnswer, onAnswer }) => {
         ))}
       </div>
       {showFeedback && (
-        <Alert className="mt-4">
-          <AlertTitle>
-            {selectedAnswer === correctAnswer ? (
-              <Check className="h-4 w-4" />
-            ) : (
-              <AlertTriangle className="h-4 w-4" />
-            )}
+        <div style={{
+          marginTop: '1rem',
+          padding: '0.5rem',
+          backgroundColor: selectedAnswer === correctAnswer ? '#d4edda' : '#f8d7da',
+          borderRadius: '4px',
+        }}>
+          <p style={{ fontWeight: 'bold' }}>
             {selectedAnswer === correctAnswer ? 'Correct!' : 'Incorrect'}
-          </AlertTitle>
-          <AlertDescription>
+          </p>
+          <p>
             {selectedAnswer === correctAnswer
               ? "Great job! You've got it right."
               : `The correct answer is ${correctAnswer}. Try again!`}
-          </AlertDescription>
-        </Alert>
+          </p>
+        </div>
       )}
     </div>
   );
@@ -77,15 +81,15 @@ const InteractivePrealgebraModules = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Interactive Prealgebra Learning Modules</h1>
+    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }}>
+      <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>Interactive Prealgebra Learning Modules</h1>
       
-      <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">1. Visualizing Quadratic Functions</h2>
-        <p className="mb-4">
+      <section style={{ marginBottom: '2rem' }}>
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>1. Visualizing Quadratic Functions</h2>
+        <p style={{ marginBottom: '1rem' }}>
           Let's explore the graph of y = x². This parabola shows how the output (y) changes as the input (x) increases or decreases.
         </p>
-        <div className="h-80 w-full">
+        <div style={{ height: '300px', width: '100%' }}>
           <ResponsiveContainer>
             <LineChart data={data}>
               <XAxis dataKey="x" />
@@ -96,13 +100,13 @@ const InteractivePrealgebraModules = () => {
             </LineChart>
           </ResponsiveContainer>
         </div>
-        <p className="mt-4">
+        <p style={{ marginTop: '1rem' }}>
           Notice how the graph is symmetrical around the y-axis and always stays above or on the x-axis.
         </p>
       </section>
 
-      <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">2. Quiz: Basic Algebra Concepts</h2>
+      <section style={{ marginBottom: '2rem' }}>
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>2. Quiz: Basic Algebra Concepts</h2>
         <QuizQuestion
           question="What is the value of x in the equation 2x + 5 = 13?"
           options={["3", "4", "5", "6"]}
@@ -115,17 +119,17 @@ const InteractivePrealgebraModules = () => {
           correctAnswer="y = 2x + 1"
           onAnswer={handleQuizAnswer}
         />
-        <p className="mt-4">
+        <p style={{ marginTop: '1rem' }}>
           Quiz Score: {quizScore} / {questionAnswered}
         </p>
       </section>
 
       <section>
-        <h2 className="text-2xl font-semibold mb-4">3. Real-world Applications</h2>
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>3. Real-world Applications</h2>
         <p>
           Prealgebra concepts are used in various real-world scenarios. Here are a few examples:
         </p>
-        <ul className="list-disc list-inside ml-4 mt-2">
+        <ul style={{ listStyleType: 'disc', marginLeft: '1.5rem', marginTop: '0.5rem' }}>
           <li>Calculating discounts during shopping</li>
           <li>Estimating travel time based on speed and distance</li>
           <li>Adjusting recipe ingredients for different serving sizes</li>
